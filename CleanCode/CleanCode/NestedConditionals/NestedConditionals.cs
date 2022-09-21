@@ -5,6 +5,8 @@ namespace CleanCode.NestedConditionals
     public class Customer
     {
         public int LoyaltyPoints { get; set; }
+
+        public bool IsGoldCustomer() => LoyaltyPoints > 100;
     }
 
     public class Reservation
@@ -30,9 +32,7 @@ namespace CleanCode.NestedConditionals
         // Regular customers can cancel up to 48 hours before
         // Gold customers can cancel up to 24 hours before
         private bool IsCancellationPeriodOver()
-            => IsGoldCustomer() && LessThan(24) || !IsGoldCustomer() && LessThan(48);
-
-        private bool IsGoldCustomer() => Customer.LoyaltyPoints > 100;
+            => Customer.IsGoldCustomer() && LessThan(24) || !Customer.IsGoldCustomer() && LessThan(48);
 
         private bool LessThan(int maxHours)
 		    => (From - DateTime.Now).TotalHours < maxHours;
