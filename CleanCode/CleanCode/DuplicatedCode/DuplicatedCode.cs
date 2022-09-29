@@ -3,69 +3,71 @@ using System;
 
 namespace CleanCode.DuplicatedCode
 {
+	class Time
+	{
+		public Time(int hours, int minutes)
+		{
+			Hours = hours;
+			Minutes = minutes;
+		}
+
+		public int Hours { get; }
+		public int Minutes { get; }
+	}
+
     class DuplicatedCode
     {
         public void AdmitGuest(string name, string admissionDateTime)
+		{
+			// Some logic 
+			// ...
+
+			var time = GetAdmissionTime(admissionDateTime);
+
+			// Some more logic 
+			// ...
+			if (time.Hours < 10)
+			{
+
+			}
+		}
+
+		public void UpdateAdmission(int admissionId, string name, string admissionDateTime)
         {
-            // Some logic 
-            // ...
+			// Some logic 
+			// ...
 
-            int time;
-            int hours = 0;
-            int minutes = 0;
-            if (!string.IsNullOrWhiteSpace(admissionDateTime))
-            {
-                if (int.TryParse(admissionDateTime.Replace(":", ""), out time))
-                {
-                    hours = time / 100;
-                    minutes = time % 100;
-                }
-                else
-                {
-                    throw new ArgumentException("admissionDateTime");
-                }
+			var time = GetAdmissionTime(admissionDateTime);
 
-            }
-            else
-                throw new ArgumentNullException("admissionDateTime");
+			// Some more logic 
+			// ...
+			if (time.Hours < 10)
+			{
 
-            // Some more logic 
-            // ...
-            if (hours < 10)
-            {
+			}
+		}
 
-            }
-        }
+		private static Time GetAdmissionTime(string admissionDateTime)
+		{
+			int hours;
+			int minutes;
+			if (!string.IsNullOrWhiteSpace(admissionDateTime))
+			{
+				if (int.TryParse(admissionDateTime.Replace(":", ""), out int time))
+				{
+					hours = time / 100;
+					minutes = time % 100;
+				}
+				else
+				{
+					throw new ArgumentException("admissionDateTime");
+				}
 
-        public void UpdateAdmission(int admissionId, string name, string admissionDateTime)
-        {
-            // Some logic 
-            // ...
+			}
+			else
+				throw new ArgumentNullException("admissionDateTime");
 
-            int time;
-            int hours = 0;
-            int minutes = 0;
-            if (!string.IsNullOrWhiteSpace(admissionDateTime))
-            {
-                if (int.TryParse(admissionDateTime.Replace(":", ""), out time))
-                {
-                    hours = time / 100;
-                    minutes = time % 100;
-                }
-                else
-                {
-                    throw new ArgumentException("admissionDateTime");
-                }
-            }
-            else
-                throw new ArgumentNullException("admissionDateTime");
-
-            // Some more logic 
-            // ...
-            if (hours < 10)
-            {
-
-            }
-        }
-    }
+			return new Time(hours, minutes);
+		}
+	}
 }
