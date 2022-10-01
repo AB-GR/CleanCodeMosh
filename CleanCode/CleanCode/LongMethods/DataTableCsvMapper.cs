@@ -6,71 +6,71 @@ namespace FooFoo
 {
 	public class DataTableCsvMapper
 	{
-        public MemoryStream Map(DataTable dt)
+        public MemoryStream Map(DataTable dataTable)
         {
-            var stream = new MemoryStream();
+            var memoryStream = new MemoryStream();
 
-			StreamWriter sw = new StreamWriter(stream);
-			WriteColumnNames(dt, sw);
-			WriteRows(dt, sw);
+			var streamWriter = new StreamWriter(memoryStream);
+			WriteColumnNames(dataTable, streamWriter);
+			WriteRows(dataTable, streamWriter);
 
-			sw.Flush();
-			sw.Close();
+			streamWriter.Flush();
+			streamWriter.Close();
 
-            return stream;
+            return memoryStream;
         }
 
-		private static void WriteRows(DataTable dt, StreamWriter sw)
+		private static void WriteRows(DataTable dataTable, StreamWriter streamWriter)
 		{
-			foreach (DataRow dr in dt.Rows)
+			foreach (DataRow row in dataTable.Rows)
 			{
-				WriteRow(dt, sw, dr);
-				sw.WriteLine();
+				WriteRow(dataTable, row, streamWriter);
+				streamWriter.WriteLine();
 			}
 		}
 
-		private static void WriteRow(DataTable dt, StreamWriter sw, DataRow dr)
+		private static void WriteRow(DataTable dataTable, DataRow row, StreamWriter streamWriter)
 		{
-			for (int i = 0; i < dt.Columns.Count; i++)
+			for (int i = 0; i < dataTable.Columns.Count; i++)
 			{
-				WriteCell(sw, dr, i);
-				WriteSeparator(dt, sw, i);
+				WriteCell(row[i], streamWriter);
+				WriteSeparator(dataTable, i, streamWriter);
 			}
 		}
 
-		private static void WriteSeparator(DataTable dt, StreamWriter sw, int i)
+		private static void WriteSeparator(DataTable dataTable, int i, StreamWriter streamWriter)
 		{
-			if (i < dt.Columns.Count - 1)
+			if (i < dataTable.Columns.Count - 1)
 			{
-				sw.Write(",");
+				streamWriter.Write(",");
 			}
 		}
 
-		private static void WriteCell(StreamWriter sw, DataRow dr, int i)
+		private static void WriteCell(object rowValue, StreamWriter streamWriter)
 		{
-			if (!Convert.IsDBNull(dr[i]))
+			if (!Convert.IsDBNull(rowValue))
 			{
-				string str = String.Format("\"{0:c}\"", dr[i].ToString()).Replace("\r\n", " ");
-				sw.Write(str);
+				var cell = string.Format("\"{0:c}\"", rowValue.ToString()).Replace("\r\n", " ");
+				streamWriter.Write(cell);
 			}
 			else
 			{
-				sw.Write("");
+				streamWriter.Write("");
 			}
 		}
 
-		private static void WriteColumnNames(DataTable dt, StreamWriter sw)
+		private static void WriteColumnNames(DataTable dataTable, StreamWriter streamWriter)
 		{
-			for (int i = 0; i < dt.Columns.Count; i++)
+			for (int i = 0; i < dataTable.Columns.Count; i++)
 			{
-				sw.Write(dt.Columns[i]);
-				if (i < dt.Columns.Count - 1)
+				streamWriter.Write(dataTable.Columns[i]);
+				if (i < dataTable.Columns.Count - 1)
 				{
-					sw.Write(",");
+					streamWriter.Write(",");
 				}
 			}
 
-			sw.WriteLine();
+			streamWriter.WriteLine();
 		}
 	}
 }
