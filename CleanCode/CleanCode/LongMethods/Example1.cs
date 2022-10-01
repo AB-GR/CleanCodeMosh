@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Web;
-using System.IO;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Data;
 using System.Text;
 
 namespace FooFoo
 {
 	public partial class Download : System.Web.UI.Page
     {
-		private readonly MemoryFileCreator _memoryFileCreator = new MemoryFileCreator();
+		private readonly DataTableCsvMapper _dataTableCsvMapper = new DataTableCsvMapper();
+		private readonly TableReader _reader = new TableReader();
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			ClearResponse();
@@ -19,15 +17,7 @@ namespace FooFoo
 		}
 
 		private byte[] GetCsv()
-		{
-			var ms = _memoryFileCreator.CreateMemoryFile();
-
-			byte[] byteArray = ms.ToArray();
-			ms.Flush();
-			ms.Close();
-
-			return byteArray;
-		}
+			=> _dataTableCsvMapper.Map(_reader.GetDataTable()).ToArray();
 
 		private void WriteContentToResponse(byte[] byteArray)
 		{
