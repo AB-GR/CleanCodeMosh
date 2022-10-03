@@ -51,9 +51,13 @@
   <ItemGroup>
     <Compile Include="Comments\Comments.cs" />
     <Compile Include="DuplicatedCode\DuplicatedCode.cs" />
-    <Compile Include="FullRefactoring\Example1.cs">
+    <Compile Include="FullRefactoring\Post.cs" />
+    <Compile Include="FullRefactoring\PostControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="FullRefactoring\PostDbContext.cs" />
+    <Compile Include="FullRefactoring\PostRepository.cs" />
+    <Compile Include="FullRefactoring\ValidationResult.cs" />
     <Compile Include="LongMethods\Example1.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

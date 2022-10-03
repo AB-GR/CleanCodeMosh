@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 
 namespace CleanCode.FullRefactoring
 {
@@ -6,15 +6,8 @@ namespace CleanCode.FullRefactoring
     {
         private readonly PostDbContext _dbContext;
 
-        public PostRepository()
-        {
-            _dbContext = new PostDbContext();
-        }
-
         public Post GetPost(int postId)
-        {
-            return _dbContext.Posts.SingleOrDefault(p => p.Id == postId);
-        }
+            => _dbContext.Posts.SingleOrDefault(p => p.Id == postId);
 
         public void SavePost(Post post)
         {
@@ -23,4 +16,3 @@ namespace CleanCode.FullRefactoring
         }
     }
 }
-
