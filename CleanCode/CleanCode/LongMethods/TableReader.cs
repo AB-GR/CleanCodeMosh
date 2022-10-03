@@ -1,17 +1,20 @@
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
-internal class TableReader
+namespace FooFoo
 {
-    public DataTable GetDataTable()
-    {
-        string strConn = ConfigurationManager.ConnectionStrings["FooFooConnectionString"].ToString();
-        SqlConnection conn = new SqlConnection(strConn);
-        SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM [FooFoo] ORDER BY id ASC", conn);
-        DataSet ds = new DataSet();
-        da.Fill(ds, "FooFoo");
-        DataTable dt = ds.Tables["FooFoo"];
-        return dt;
-    }
+	public class TableReader
+	{
+		public DataTable GetDataTable()
+		{
+			var strConn = ConfigurationManager.ConnectionStrings["FooFooConnectionString"].ToString();
+			var conn = new SqlConnection(strConn);
+			var da = new SqlDataAdapter("SELECT * FROM [FooFoo] ORDER BY id ASC", conn);
+			var ds = new DataSet();
+			da.Fill(ds, "FooFoo");
+			var dt = ds.Tables["FooFoo"];
+			return dt;
+		}
+	}
 }

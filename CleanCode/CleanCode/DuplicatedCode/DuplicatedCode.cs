@@ -6,66 +6,43 @@ namespace CleanCode.DuplicatedCode
     class DuplicatedCode
     {
         public void AdmitGuest(string name, string admissionDateTime)
+		{
+			// Some logic 
+			// ...
+
+			var time = Time.Parse(admissionDateTime);
+
+			// Some more logic 
+			// ...
+			if (time.Hours < 10)
+			{
+
+			}
+		}
+
+		public void UpdateAdmission(int admissionId, string name, string admissionDateTime)
         {
-            // Some logic 
-            // ...
+			// Some logic 
+			// ...
 
-            int time;
-            int hours = 0;
-            int minutes = 0;
-            if (!string.IsNullOrWhiteSpace(admissionDateTime))
-            {
-                if (int.TryParse(admissionDateTime.Replace(":", ""), out time))
-                {
-                    hours = time / 100;
-                    minutes = time % 100;
-                }
-                else
-                {
-                    throw new ArgumentException("admissionDateTime");
-                }
+			var time = Time.Parse(admissionDateTime);
 
-            }
-            else
-                throw new ArgumentNullException("admissionDateTime");
+			// Some more logic 
+			// ...
+			if (time.Hours < 10)
+			{
 
-            // Some more logic 
-            // ...
-            if (hours < 10)
-            {
+			}
+		}
+	}
 
-            }
-        }
+	internal class Time
+	{
+		public int Hours { get; set; }
 
-        public void UpdateAdmission(int admissionId, string name, string admissionDateTime)
-        {
-            // Some logic 
-            // ...
-
-            int time;
-            int hours = 0;
-            int minutes = 0;
-            if (!string.IsNullOrWhiteSpace(admissionDateTime))
-            {
-                if (int.TryParse(admissionDateTime.Replace(":", ""), out time))
-                {
-                    hours = time / 100;
-                    minutes = time % 100;
-                }
-                else
-                {
-                    throw new ArgumentException("admissionDateTime");
-                }
-            }
-            else
-                throw new ArgumentNullException("admissionDateTime");
-
-            // Some more logic 
-            // ...
-            if (hours < 10)
-            {
-
-            }
-        }
-    }
+		internal static Time Parse(string admissionDateTime)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
